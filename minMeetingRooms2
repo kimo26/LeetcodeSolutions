@@ -1,0 +1,37 @@
+class Solution(object):
+    def minMeetingRooms(self, interval):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        interval = sorted(interval,key= lambda x:x[0])
+        rooms = []#O(n)
+        n= 0
+        for x in interval:#O(n)
+            if n==0:
+                rooms.append(x[1])
+                n+=1
+            else:
+                p=self.bs(rooms,x[1],n)#O(log(n))
+                if rooms[0]<=x[0]:
+                    rooms.insert(p,x[1])
+                    del rooms[0]
+                else:
+                    rooms.insert(p,x[1])
+                    n+=1
+        return n#time : O(nlog(n)), space: O(n)
+    
+    def bs(self,arr,v,n):
+        l = 0
+        r = n-1
+        while l<=r:
+            mid = l+(r-l)/2
+            if arr[mid]==v:
+                return mid
+            elif arr[mid]>v:
+                r = mid-1
+            else:
+                l=mid+1
+        return l
+        
+        
