@@ -1,0 +1,33 @@
+class Solution(object):
+    def mincostToHireWorkers(self, quality, wage, k):
+        """
+        :type quality: List[int]
+        :type wage: List[int]
+        :type k: int
+        :rtype: float
+        """
+        ratio = map(lambda x,y : float(x)/y, wage,quality)#O(n)
+        sort = zip(*sorted(zip(ratio,quality), key = lambda x : x[0]))#O(nlog(n))
+        sort = map(list, sort)
+        ratio = sort[0]
+        quality = sort[1]
+        sq = sorted(quality)#O(nlog(n))
+        res = float("infinity")
+   
+        for i in range(len(ratio)-1,k-2,-1):#O(n-k)
+            r = ratio[i]
+            ans = r*sum(sq[:k])#O(k)
+            res = min(res,ans)
+            self.binarydel(sq,quality.pop(),0,i)#O(log(n))
+        return res#time: O(nlog(n)), space: O(n)
+    
+    def binarydel(self, arr, v,l,r):#O(log(n))
+        while l < r:
+            m = l+(r-l)/2
+            if (arr[m]==v):
+                del arr[m]
+                return
+            elif arr[m]>v:
+                r = m
+            else:
+                l=m+1
