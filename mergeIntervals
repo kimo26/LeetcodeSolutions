@@ -1,0 +1,37 @@
+'''
+Runtime: 169 ms, faster than 75.19% of Python online submissions for Merge Intervals.
+Memory Usage: 18 MB, less than 99.02% of Python online submissions for Merge Intervals.
+'''
+
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        intervals.sort(key=lambda x:x[0])
+        intervals = [intervals[i] for i in range(len(intervals)) if i == 0 or intervals[i] != intervals[i-1]]
+        return self.con(intervals)
+    def con(self,intervals):
+        if len(intervals)== 1:
+            return intervals
+        if len(intervals)==2:
+           
+            if intervals[0][1]>=intervals[1][0]:
+                return [[intervals[0][0],max(intervals[1][1],intervals[0][1])]]
+            return intervals
+        mid = len(intervals)/2
+        left = self.con(intervals[:mid])
+        right =self.con(intervals[mid:])
+        if left[-1][1]>=right[0][0]:
+            i =0
+            while i < len(right):
+                if left[-1][1]<right[i][0]:
+                    return left+right[i:]
+                if right[i][1]>left[-1][1]:
+                    left[-1][1]=right[i][1]
+                    return left+right[i+1:]
+                i+=1
+            return left
+        
+        return left+right
