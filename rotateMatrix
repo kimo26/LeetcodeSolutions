@@ -1,3 +1,7 @@
+'''
+Runtime: 27 ms, faster than 80.52% of Python online submissions for Rotate Image.
+Memory Usage: 13.4 MB, less than 43.90% of Python online submissions for Rotate Image.
+'''
 class Solution(object):
     def rotate(self, matrix):
         """
