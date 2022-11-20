@@ -1,3 +1,7 @@
+'''
+Runtime: 722 ms, faster than 55.38% of Python online submissions for Minimum Cost to Hire K Workers.
+Memory Usage: 16.6 MB, less than 81.54% of Python online submissions for Minimum Cost to Hire K Workers.
+'''
 class Solution(object):
     def mincostToHireWorkers(self, quality, wage, k):
         """
