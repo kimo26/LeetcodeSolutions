@@ -1,0 +1,20 @@
+'''
+Runtime: 95 ms, faster than 97.85% of Python online submissions for Set Matrix Zeroes.
+Memory Usage: 14.1 MB, less than 83.11% of Python online submissions for Set Matrix Zeroes.
+'''
+class Solution(object):
+    def setZeroes(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        n=len(matrix)
+        m = len(matrix[0])
+        for i in range(n):
+            if 0 in matrix[i]:
+                matrix[i] = list(map(lambda x : 0 if x != 0 else 'f',matrix[i]))
+        for i in range(n):
+            for j in range(m):
+                if matrix[i][j]=='f':
+                    for k in range(n):
+                        matrix[k][j] = 0
