@@ -1,0 +1,35 @@
+'''
+Runtime: 13 ms, faster than 98.76% of Python online submissions for Decode Ways.
+Memory Usage: 13.4 MB, less than 92.23% of Python online submissions for Decode Ways.
+'''
+class Solution(object):
+    def numDecodings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        s = [int(i) for i in s]
+        dp = [0 for i in range(len(s))]
+        if self.isin(s[0]):
+            dp[0]=1
+        for i in range(1,len(s)):
+            if self.isin(s[i]):
+                dp[i]=dp[i-1]
+                if self.isin(s[i-1],r=2) and self.isin(s[i-1]*10+s[i]):
+                    if i-2>=0:
+                        dp[i]+=dp[i-2]
+                    else:
+                        dp[i]+=1
+            elif self.isin(s[i-1]*10+s[i]):
+                if i-2>=0:
+                    dp[i]=dp[i-2]
+                else:
+                    dp[i]=1
+            else:
+                dp[i]=0
+        return dp[-1]
+    def isin(self,x,r=26):
+        if 1<=x and x<=r:
+            return True
+        return False
+            
